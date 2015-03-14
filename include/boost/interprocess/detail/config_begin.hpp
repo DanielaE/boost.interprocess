@@ -41,4 +41,6 @@
    #pragma warning (disable : 4673) //  throwing '' the following types will not be considered at the catch site
    #pragma warning (disable : 4671) //  the copy constructor is inaccessible
    #pragma warning (disable : 4250) //  inherits 'x' via dominance
+   #pragma warning (disable : 4701) // potentially uninitialized local variable
+   #pragma warning (disable : 4703) // potentially uninitialized local pointer variable
 #endif
