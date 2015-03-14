@@ -33,6 +33,8 @@ struct atomic_func_test
    {
       object = rsm.template find<int>("atomic_func_find_object").first;
    }
+private:
+   atomic_func_test& operator=(const atomic_func_test&);
 };
 
 template <class SegmentManager>
