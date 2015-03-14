@@ -837,8 +837,8 @@ class segment_manager
        size_type &length, ipcdetail::true_ is_intrusive, bool use_lock)
    {
       (void)is_intrusive;
-      typedef IndexType<ipcdetail::index_config<CharT, MemoryAlgorithm> >         index_type;
-      typedef typename index_type::iterator           index_it;
+      typedef IndexType<ipcdetail::index_config<CharT, MemoryAlgorithm> >         index_t;
+      typedef typename index_t::iterator           index_it;
 
       //-------------------------------
       scoped_lock<rmutex> guard(priv_get_lock(use_lock));
@@ -874,9 +874,9 @@ class segment_manager
        size_type &length, ipcdetail::false_ is_intrusive, bool use_lock)
    {
       (void)is_intrusive;
-      typedef IndexType<ipcdetail::index_config<CharT, MemoryAlgorithm> >      index_type;
-      typedef typename index_type::key_type        key_type;
-      typedef typename index_type::iterator        index_it;
+      typedef IndexType<ipcdetail::index_config<CharT, MemoryAlgorithm> >      index_t;
+      typedef typename index_t::key_type        key_type;
+      typedef typename index_t::iterator        index_it;
 
       //-------------------------------
       scoped_lock<rmutex> guard(priv_get_lock(use_lock));
@@ -934,9 +934,9 @@ class segment_manager
                                    ipcdetail::in_place_interface &table, ipcdetail::true_ is_intrusive_index)
    {
       (void)is_intrusive_index;
-      typedef IndexType<ipcdetail::index_config<CharT, MemoryAlgorithm> >         index_type;
-      typedef typename index_type::iterator           index_it;
-      typedef typename index_type::value_type         intrusive_value_type;
+      typedef IndexType<ipcdetail::index_config<CharT, MemoryAlgorithm> >         index_t;
+      typedef typename index_t::iterator           index_it;
+      typedef typename index_t::value_type         intrusive_value_type;
 
       //-------------------------------
       scoped_lock<rmutex> guard(m_header);
@@ -984,9 +984,9 @@ class segment_manager
                                    ipcdetail::false_ is_intrusive_index)
    {
       (void)is_intrusive_index;
-      typedef IndexType<ipcdetail::index_config<CharT, MemoryAlgorithm> >            index_type;
-      typedef typename index_type::iterator              index_it;
-      typedef typename index_type::key_type              key_type;
+      typedef IndexType<ipcdetail::index_config<CharT, MemoryAlgorithm> >            index_t;
+      typedef typename index_t::iterator              index_it;
+      typedef typename index_t::key_type              key_type;
 
       //-------------------------------
       scoped_lock<rmutex> guard(m_header);
@@ -1010,8 +1010,8 @@ class segment_manager
       IndexType<ipcdetail::index_config<CharT, MemoryAlgorithm> > &index,
       ipcdetail::in_place_interface &table)
    {
-      typedef IndexType<ipcdetail::index_config<CharT, MemoryAlgorithm> >      index_type;
-      typedef typename index_type::iterator        index_it;
+      typedef IndexType<ipcdetail::index_config<CharT, MemoryAlgorithm> >      index_t;
+      typedef typename index_t::iterator        index_it;
 
       //Get allocation parameters
       block_header_t *ctrl_data = reinterpret_cast<block_header_t*>
@@ -1068,8 +1068,8 @@ class segment_manager
                                  , sizeof(CharT)
                                  , namelen);
 
-      typedef IndexType<ipcdetail::index_config<CharT, MemoryAlgorithm> >            index_type;
-      typedef typename index_type::iterator              index_it;
+      typedef IndexType<ipcdetail::index_config<CharT, MemoryAlgorithm> >            index_t;
+      typedef typename index_t::iterator              index_it;
       typedef std::pair<index_it, bool>                  index_ib;
 
       //-------------------------------
@@ -1088,8 +1088,8 @@ class segment_manager
       //the key (which is a smart pointer) to an equivalent one
       index_ib insert_ret;
 
-      typename index_type::insert_commit_data   commit_data;
-      typedef typename index_type::value_type   intrusive_value_type;
+      typename index_t::insert_commit_data   commit_data;
+      typedef typename index_t::value_type   intrusive_value_type;
 
       BOOST_TRY{
          ipcdetail::intrusive_compare_key<CharT> key(name, namelen);
@@ -1165,7 +1165,7 @@ class segment_manager
       //if something goes wrong. This will be executed *before*
       //the memory allocation as the intrusive value is built in that
       //memory
-      value_eraser<index_type> v_eraser(index, it);
+      value_eraser<index_t> v_eraser(index, it);
 
       //Construct array, this can throw
       ipcdetail::array_construct(ptr, num, table);
@@ -1193,11 +1193,11 @@ class segment_manager
                                  , sizeof(CharT)
                                  , namelen);
 
-      typedef IndexType<ipcdetail::index_config<CharT, MemoryAlgorithm> >            index_type;
-      typedef typename index_type::key_type              key_type;
-      typedef typename index_type::mapped_type           mapped_type;
-      typedef typename index_type::value_type            value_type;
-      typedef typename index_type::iterator              index_it;
+      typedef IndexType<ipcdetail::index_config<CharT, MemoryAlgorithm> >            index_t;
+      typedef typename index_t::key_type              key_type;
+      typedef typename index_t::mapped_type           mapped_type;
+      typedef typename index_t::value_type            value_type;
+      typedef typename index_t::iterator              index_it;
       typedef std::pair<index_it, bool>                  index_ib;
 
       //-------------------------------
@@ -1240,7 +1240,7 @@ class segment_manager
       }
       //Initialize the node value_eraser to erase inserted node
       //if something goes wrong
-      value_eraser<index_type> v_eraser(index, it);
+      value_eraser<index_t> v_eraser(index, it);
 
       //Allocates buffer for name + data, this can throw (it hurts)
       void *buffer_ptr;
