@@ -205,6 +205,9 @@ class LogDeadReferenceUser
    void function_using_log()
    {  LogSingleton::get().log_it();  }
 
+#if defined(BOOST_MSVC)
+#pragma warning(disable: 4297) // function assumed not to throw an exception but does
+#endif
    ~LogDeadReferenceUser()
    {
       std::cout << "~LogDeadReferenceUser(), LogSingleton: " << typeid(LogSingleton).name() << "\n" << std::endl;
