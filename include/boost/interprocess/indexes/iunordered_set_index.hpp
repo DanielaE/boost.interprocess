@@ -89,7 +89,6 @@ struct iunordered_set_index_aux
    };
 
     struct hash_function
-      : std::unary_function<value_type, std::size_t>
     {
         std::size_t operator()(const value_type &val) const
         {
